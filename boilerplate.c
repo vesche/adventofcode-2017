@@ -4,7 +4,7 @@
 
 #define INPUT "day01.input"
 
-int part1(char* seq)
+void part1()
 {
 }
 
