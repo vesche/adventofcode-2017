@@ -14,7 +14,8 @@ def getinput(level):
 def main():
     if len(sys.argv) > 1:
         level = sys.argv[1]
-        print(getinput(level))
+        with open('day{}.input'.format(level.zfill(2)), 'w') as f:
+            f.write(getinput(level))
     else:
         print('Usage: ./adventapi.py <level>')
 
