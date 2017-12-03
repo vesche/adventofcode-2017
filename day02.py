@@ -18,9 +18,9 @@ def part2():
     for row in data:
         combos = list(itertools.combinations(row, 2))
         for c in combos:
-            result = max(c) / min(c)
-            if result == int(result):
-                checksum += int(result)
+            a, b = max(c), min(c)
+            if a % b == 0:
+                checksum += a//b
     return checksum
 
 print(part1())

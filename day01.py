@@ -14,7 +14,7 @@ def part2():
     count = 0
     data_len = len(data)
     for i in range(data_len)[::-1]:
-        if data[i] == data[int(i-(data_len/2))]:
+        if data[i] == data[i - data_len//2]:
             count += int(data[i])
     return count
 
