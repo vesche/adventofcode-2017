@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <limits.h>
 
 #define INPUT "day02.input"
 
@@ -8,8 +9,8 @@ int part1(int numbers[16])
 {
     int i, largest, smallest, result;
 
-    largest = 0;
-    smallest = 1000;
+    largest = INT_MIN;
+    smallest = INT_MAX;
 
     for (i = 0; i < 16; i++) {
         if (numbers[i] > largest)
