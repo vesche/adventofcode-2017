@@ -2,80 +2,53 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include <unistd.h>
 
 #define INPUT "day06.input"
 
-// incomplete as of right now
-
-int part1(int numbers[16])
+void part1n2(int numbers[16])
 {
-    int i, start, biggest, count, blocks, reallocate[16], chunk, ri;
-    float ratio;
-    char seen[12288];
+    int i, j, count, largest, loc, check;
+    int seen[12288][16];
 
-    biggest = count = 0;
+    count = largest = 0;
 
-    for (i = 0; i < 16; i++) {
-        if (numbers[i] > biggest) {
-            biggest = numbers[i];
-            start = i;
+    while (count < 12288) {
+        // check if the same
+        for (i = 0; i < count; i++) {
+            int equal = 0;
+            for (j = 0; j < 16; j++)
+                if (numbers[j] == seen[i][j])
+                    equal++;
+                else
+                    break;
+            if (equal == 16) {
+                printf("%d %d\n", count, count-i);
+                return;
+            }
         }
-        reallocate[i] = 0;
-    }
 
-    // return round(7/(float)4);
-
-    for (;;) {
+        // fill seen with current numbers
+        for (i = 0; i < 16; i++)
+            seen[count][i] = numbers[i];
         count += 1;
-        blocks = numbers[start];
 
-        ratio = blocks/16.0;
-        if (ratio <= 1) {
-            for (i = 0; i < blocks; i++) {
-                reallocate[i] = 1;
-            }
-        } else {
-            chunk = round(ratio);
-            if (blocks != chunk*16) {
-                for (i = 0; i < 15; i++) {
-                    reallocate[i] = chunk;
-                }
-                reallocate[15] = chunk*16-blocks;
-            } else {
-                for (i = 0; i < 16; i++)
-                    reallocate[i] = chunk;
+        // find largest number and index
+        for (i = 0; i < 16; i++) {
+            if (numbers[i] > largest) {
+                largest = numbers[i];
+                loc = i;
             }
         }
 
-        numbers[start] = 0;
-        ri = start + 1;
-        for (i = 0; i < 16; i++) {
-            numbers[ri%16] += reallocate[i];
-            ri += 1;
+        // increment array
+        numbers[loc] = 0;
+        while (largest != 0) {
+            loc = (loc + 1) % 16;
+            numbers[loc] += 1;
+            largest -= 1;
         }
-
-        for (i = 0; i < 16; i++) {
-            printf("%d ", numbers[i]);
-        }
-        break;
-
-        //char *snumb;
-        //for (i = 0; i < 16; i++ ) {
-        //    
-        //}
-
-        //for (i = 0; i < count-1; i++) {
-        //    if (numbers == 
-        //}
-
     }
-
-    return 0;
-}
-
-int part2(int numbers[16])
-{
-    return 0;
 }
 
 int main()
@@ -102,7 +75,7 @@ int main()
             p = strtok(NULL, "\t");
         }
 
-        printf("%d\n", part1(numbers));
+        part1n2(numbers);
     }
 
     return 0;
