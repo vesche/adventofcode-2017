@@ -25,7 +25,21 @@ def part1():
             return parent
 
 def part2():
-    pass
+    print('digraph a {')
+    for line in data:
+        line = line.split()
+        if '->' in line:
+            name, weight, children = line[0], line[1][1:-1], \
+                ''.join(line[3:]).split(',')
+            for c in children:
+                print('{} -> {}'.format(name, c))
 
-print(part1())
+    for line in data:
+        line = line.split()
+        name, weight = line[0], line[1][1:-1]
+        print('{} [label="{}({})[{}]"]'.format(name, name, weight, weight))
+
+    print('}')
+
+# print(part1())
 print(part2())
