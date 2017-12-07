@@ -5,7 +5,7 @@ from __future__ import division
 with open('day06.input') as f:
     data = map(int, f.read().rstrip().split())
 
-def part1():
+def part1n2():
     count = 0
     seen = []
     run = True
@@ -39,10 +39,6 @@ def part1():
                 run = False
         seen.append(data[:])
 
-    return count
+    return count, len(seen)-1 - seen.index(data)
 
-def part2():
-    pass
-
-print(part1())
-print(part2())
+print(part1n2())
